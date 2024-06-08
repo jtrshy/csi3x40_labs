@@ -42,30 +42,33 @@ function createGame(n) {
 
 function moveLeft() {
     let pacmanIndex = game.indexOf('C');
+    let ghostIndex = game.indexOf('^');
 
     if (pacmanIndex === 0) {
-
-        if (game[game.length - 1] === '.') {
+        if (game[game.length - 1] === '^') { // Check if the next cell contains the ghost
+            console.log('Game over');
+            clearInterval(ghostIntervalId);
+        } else if (game[game.length - 1] !== ' ') { // Check if the next cell contains a pellet
             score += 1;
-            numberOfPellets -= 1;
             console.log(score);
             let scoreElement = document.getElementById('score');
             scoreElement.textContent = 'Score: ' + score;
         }
 
-        game[pacmanIndex] = '.';
+        game[pacmanIndex] = ' ';
         game[game.length - 1] = 'C';
     } else {
-
-        if (game[pacmanIndex - 1] === '.') {
+        if (game[pacmanIndex - 1] === '^') { // Check if the next cell contains the ghost
+            console.log('Game over');
+            clearInterval(ghostIntervalId);
+        } else if (game[pacmanIndex - 1] !== ' ') { // Check if the next cell contains a pellet
             score += 1;
-            numberOfPellets -= 1;
             console.log(score);
             let scoreElement = document.getElementById('score');
             scoreElement.textContent = 'Score: ' + score;
         }
 
-        game[pacmanIndex] = '.';
+        game[pacmanIndex] = ' ';
         game[pacmanIndex - 1] = 'C';
     }
 
@@ -88,30 +91,33 @@ function moveLeft() {
 
 function moveRight() {
     let pacmanIndex = game.indexOf('C');
+    let ghostIndex = game.indexOf('^');
 
     if (pacmanIndex === game.length - 1) {
-
-        if (game[0] === '.') {
+        if (game[0] === '^') { // Check if the next cell contains the ghost
+            console.log('Game over');
+            clearInterval(ghostIntervalId);
+        } else if (game[0] !== ' ') { // Check if the next cell contains a pellet
             score += 1;
-            numberOfPellets -= 1;
             console.log(score);
             let scoreElement = document.getElementById('score');
             scoreElement.textContent = 'Score: ' + score;
         }
 
-        game[pacmanIndex] = '.';
+        game[pacmanIndex] = ' ';
         game[0] = 'C';
     } else {
-
-        if (game[pacmanIndex + 1] === '.') {
+        if (game[pacmanIndex + 1] === '^') { // Check if the next cell contains the ghost
+            console.log('Game over');
+            clearInterval(ghostIntervalId);
+        } else if (game[pacmanIndex + 1] !== ' ') { // Check if the next cell contains a pellet
             score += 1;
-            numberOfPellets -= 1;
             console.log(score);
             let scoreElement = document.getElementById('score');
             scoreElement.textContent = 'Score: ' + score;
         }
 
-        game[pacmanIndex] = '.';
+        game[pacmanIndex] = ' ';
         game[pacmanIndex + 1] = 'C';
     }
 
@@ -132,7 +138,7 @@ function moveRight() {
     }
 }
 
-function repeatGhostMovement() {
+function repeatedGhostMovement() {
     let ghostIndex;
     let pacmanIndex;
     let previousCell = ' '; // Initialize previous cell as empty
@@ -177,7 +183,7 @@ function repeatGhostMovement() {
     }, 2000);
 }
 
-repeatGhostMovement();
+repeatedGhostMovement();
 
 window.addEventListener('keydown', function(event) {
     switch (event.key) {
