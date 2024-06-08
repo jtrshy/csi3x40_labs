@@ -1,7 +1,8 @@
 console.log('Hello world!');
 
-let game = createGame(10);
+var numberOfPellets = 0;
 var score = 0;
+var game = createGame(10);
 
 // ----------------- Functions -----------------
 
@@ -17,7 +18,7 @@ function generateRandomPosition(n) {
 
 function createGame(n) {
     let board = new Array(n).fill('.');
-    score = 0;
+    numberOfPellets = n - 3;
 
     let [pacmanStartPosition, ghostStartPosition, fruitPosition] = generateRandomPosition(n);
     
@@ -38,31 +39,32 @@ function createGame(n) {
     return board;
 }
 
-function moveLeft(game) {
+function moveLeft() {
     let pacmanIndex = game.indexOf('C');
 
     if (pacmanIndex === 0) {
 
         if (game[game.length - 1] === '.') {
             score += 1;
+            numberOfPellets -= 1;
             console.log(score);
             let scoreElement = document.getElementById('score');
             scoreElement.textContent = 'Score: ' + score;
         }
 
-        game[pacmanIndex] = '';
+        game[pacmanIndex] = '.';
         game[game.length - 1] = 'C';
-    }
-    else {
+    } else {
 
         if (game[pacmanIndex - 1] === '.') {
             score += 1;
+            numberOfPellets -= 1;
             console.log(score);
             let scoreElement = document.getElementById('score');
             scoreElement.textContent = 'Score: ' + score;
         }
 
-        game[pacmanIndex] = '';
+        game[pacmanIndex] = '.';
         game[pacmanIndex - 1] = 'C';
     }
 
@@ -76,34 +78,39 @@ function moveLeft(game) {
     // Append the paragraph to the body of the document
     document.body.appendChild(p);
 
-    return game;
+    if (numberOfPellets === 0) {
+        console.log('New game');
+        // Create a new game
+        game = createGame(10);
+    }
 }
 
-function moveRight(game) {
+function moveRight() {
     let pacmanIndex = game.indexOf('C');
 
     if (pacmanIndex === game.length - 1) {
 
         if (game[0] === '.') {
             score += 1;
+            numberOfPellets -= 1;
             console.log(score);
             let scoreElement = document.getElementById('score');
             scoreElement.textContent = 'Score: ' + score;
         }
 
-        game[pacmanIndex] = '';
+        game[pacmanIndex] = '.';
         game[0] = 'C';
-    }
-    else {
+    } else {
 
         if (game[pacmanIndex + 1] === '.') {
             score += 1;
+            numberOfPellets -= 1;
             console.log(score);
             let scoreElement = document.getElementById('score');
             scoreElement.textContent = 'Score: ' + score;
         }
 
-        game[pacmanIndex] = '';
+        game[pacmanIndex] = '.';
         game[pacmanIndex + 1] = 'C';
     }
 
@@ -117,16 +124,20 @@ function moveRight(game) {
     // Append the paragraph to the body of the document
     document.body.appendChild(p);
 
-    return game;
+    if (numberOfPellets === 0) {
+        // Create a new game
+        console.log('New game');
+        game = createGame(10);
+    }
 }
 
 window.addEventListener('keydown', function(event) {
     switch (event.key) {
         case 'ArrowLeft':
-            moveLeft(game);
+            moveLeft();
             break;
         case 'ArrowRight':
-            moveRight(game);
+            moveRight();
             break;
     }
 });
