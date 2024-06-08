@@ -1,14 +1,14 @@
 # csi3x40_labs
-The purpose of this repository is to serve as a repository for CSI 3140 labs for 20245.
+The purpose of this repository is to serve as a repository for CSI 3140 labs for the Spring/Summer term of 2024 (20245).
 
 # Lab 1:
 Student names: Jason Phung and Noah do Rego (part 2 was completed on Noah's repository)
 
 # Lab 2:
-Refer to lab02 (resume.html and styles.css)
+Refer to the lab02 folder (resume.html and styles.css)
 
 # Lab 3:
-Refer to lab03 (pacman.html and pacman.js).
+Refer to the lab03 folder (pacman.html and pacman.js).
 
 Currently, it is a 1D Pacman implementation with all mandatory features listed in the lab instructions (along with some optional features). This includes board creation, left/right movement for Pacman, pellet eating and live score updating, level completion detection after all pellets are eaten, and ghost movement and Pacman death detection (for both when the ghost moves onto Pacman and when the player moves onto the ghost).
 
