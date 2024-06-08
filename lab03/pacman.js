@@ -3,6 +3,7 @@ console.log('Hello world!');
 var numberOfPellets = 0;
 var score = 0;
 var game = createGame(10);
+var ghostIntervalId;
 
 // ----------------- Functions -----------------
 
@@ -130,6 +131,53 @@ function moveRight() {
         game = createGame(10);
     }
 }
+
+function repeatGhostMovement() {
+    let ghostIndex;
+    let pacmanIndex;
+    let previousCell = ' '; // Initialize previous cell as empty
+
+    ghostIntervalId = setInterval(function() {
+        ghostIndex = game.indexOf('^');
+        pacmanIndex = game.indexOf('C');
+
+        if (ghostIndex < pacmanIndex) {
+            if (ghostIndex + 1 === pacmanIndex) {
+                console.log('Game over');
+                clearInterval(ghostIntervalId);
+            }
+            else {
+                game[ghostIndex] = previousCell; // Restore the previous cell
+                previousCell = game[ghostIndex + 1]; // Save the next cell state
+                game[ghostIndex + 1] = '^';
+            }
+        }
+
+        if (ghostIndex > pacmanIndex) {
+            if (ghostIndex - 1 === pacmanIndex) {
+                console.log('Game over');
+                clearInterval(ghostIntervalId);
+            }
+            else {
+                game[ghostIndex] = previousCell; // Restore the previous cell
+                previousCell = game[ghostIndex - 1]; // Save the next cell state
+                game[ghostIndex - 1] = '^';
+            }
+        }
+
+        console.log(game);
+        // Convert the board array to a string, with each element separated by a space
+        let boardString = game.join(' ');
+        // Create a new paragraph element
+        let p = document.createElement('p');
+        // Set the text of the paragraph to the board string
+        p.textContent = boardString;
+        // Append the paragraph to the body of the document
+        document.body.appendChild(p);
+    }, 2000);
+}
+
+repeatGhostMovement();
 
 window.addEventListener('keydown', function(event) {
     switch (event.key) {
