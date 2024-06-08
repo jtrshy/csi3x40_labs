@@ -1,6 +1,9 @@
 console.log('Hello world!');
 
 let game = createGame(10);
+var score = 0;
+
+// ----------------- Functions -----------------
 
 function generateRandomPosition(n) {
     let positions = new Set();
@@ -14,6 +17,7 @@ function generateRandomPosition(n) {
 
 function createGame(n) {
     let board = new Array(n).fill('.');
+    score = 0;
 
     let [pacmanStartPosition, ghostStartPosition, fruitPosition] = generateRandomPosition(n);
     
@@ -38,10 +42,26 @@ function moveLeft(game) {
     let pacmanIndex = game.indexOf('C');
 
     if (pacmanIndex === 0) {
+
+        if (game[game.length - 1] === '.') {
+            score += 1;
+            console.log(score);
+            let scoreElement = document.getElementById('score');
+            scoreElement.textContent = 'Score: ' + score;
+        }
+
         game[pacmanIndex] = '';
         game[game.length - 1] = 'C';
     }
     else {
+
+        if (game[pacmanIndex - 1] === '.') {
+            score += 1;
+            console.log(score);
+            let scoreElement = document.getElementById('score');
+            scoreElement.textContent = 'Score: ' + score;
+        }
+
         game[pacmanIndex] = '';
         game[pacmanIndex - 1] = 'C';
     }
@@ -63,10 +83,26 @@ function moveRight(game) {
     let pacmanIndex = game.indexOf('C');
 
     if (pacmanIndex === game.length - 1) {
+
+        if (game[0] === '.') {
+            score += 1;
+            console.log(score);
+            let scoreElement = document.getElementById('score');
+            scoreElement.textContent = 'Score: ' + score;
+        }
+
         game[pacmanIndex] = '';
         game[0] = 'C';
     }
     else {
+
+        if (game[pacmanIndex + 1] === '.') {
+            score += 1;
+            console.log(score);
+            let scoreElement = document.getElementById('score');
+            scoreElement.textContent = 'Score: ' + score;
+        }
+
         game[pacmanIndex] = '';
         game[pacmanIndex + 1] = 'C';
     }
